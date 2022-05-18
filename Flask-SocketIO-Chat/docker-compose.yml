@@ -31,3 +31,7 @@ services:
     command: python ./server.py
   worker1:
     build: worker
+  worker2:
+    build: worker
+  worker3:
+    build: worker

@@ -25,7 +25,13 @@ services:
     # Открываем порт в контейнер
     # Порт, который будет смотреть наружу : порт который используется внутри контейнера
     ports:
-      - "5000:5000"
+      - 5000:5000
+    expose:
+      - 5000
     command: python ./server.py
   worker1:
+    build: worker
+  worker2:
+    build: worker
+  worker2:
     build: worker
