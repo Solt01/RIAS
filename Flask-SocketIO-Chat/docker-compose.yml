@@ -1,0 +1,33 @@
+services:
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+  mongo:
+    image: mongo
+    restart: always
+  memcached:
+    image: memcached
+    restart: always
+  server:
+    # Путь до Dockerfile
+    build: ./main
+    # Имя для создаваемого контейнера
+    container_name: server-flask
+    # Создание переменных окружения в контейнере
+    environment:
+      # для отладки (при запуске в релиз убрать!)
+      - FLASK_ENV=development
+      ## Позволяет отслеживать процесс работы приложения в командной строке
+      - PYTHONUNBUFFERED=True                   
+      ##
+    # Перезапускаем сервис в случае падения 
+    # restart: on-failure
+    # Открываем порт в контейнер
+    # Порт, который будет смотреть наружу : порт который используется внутри контейнера
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    command: python ./server.py
+  worker1:
+    build: worker
